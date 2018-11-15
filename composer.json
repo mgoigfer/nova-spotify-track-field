@@ -1,0 +1,41 @@
+{
+    "name": "mgoigfer/nova-spotify-track-field",
+    "description": "A Spotify track field to use in your Laravel Nova apps.",
+    "keywords": [
+        "laravel",
+        "nova",
+        "spotify",
+        "package"
+    ],
+    "homepage": "https://github.com/mgoigfer/nova-spotify-track-field",
+    "license": "MIT",
+    "type": "package",
+    "authors": [
+        {
+            "name": "Mikel Goig",
+            "email": "m@mikelgoig.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0",
+        "mgoigfer/laravel-spotify-wrapper": "^0.1.3",
+        "mgoigfer/nova-spotify-auth-tool": "^0.1.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Mgoigfer\\SpotifyTrackField\\": "src/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Mgoigfer\\SpotifyTrackField\\SpotifyTrackFieldServiceProvider"
+            ]
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
