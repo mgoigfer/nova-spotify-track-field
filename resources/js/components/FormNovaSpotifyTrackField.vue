@@ -105,13 +105,14 @@ export default {
      */
     fill(formData) {
       if (this.track) {
-        formData.append('spotify_id', this.track.id || '');
+        formData.append('id', this.track.id || '');
         formData.append('name', this.track.name || '');
-        formData.append('artist', this.track.artists[0].name || '');
+        formData.append('artist_id', this.track.artists[0].id || '');
+        formData.append('artist_name', this.track.artists[0].name || '');
         formData.append('duration_ms', this.track.duration_ms || '');
         formData.append('popularity', this.track.popularity || '');
         formData.append('preview_url', this.track.preview_url || '');
-        formData.append('first_letter', this.track.name[0].toLowerCase() || '');
+        formData.append('first_letter', this.track.name[0].toUpperCase() || '');
       }
     },
 

@@ -16,6 +16,20 @@ class SpotifyTrackField extends Field
     public $component = 'nova-spotify-track-field';
 
     /**
+     * The Spotify track attributes.
+     */
+    public $trackAttributes = [
+        'id',
+        'name',
+        'artist_id',
+        'artist_name',
+        'duration_ms',
+        'popularity',
+        'preview_url',
+        'first_letter',
+    ];
+
+    /**
      * Set the Spotify access token.
      *
      * @return $this
@@ -30,6 +44,20 @@ class SpotifyTrackField extends Field
 
         return $this->withMeta([
             'spotifyAccessToken' => $access_token,
+        ]);
+    }
+
+    /**
+     * Set the extra model attributes to be stored.
+     *
+     * @param  array  $extraAttributes
+     *
+     * @return $this
+     */
+    public function extraAttributes(array $extraAttributes)
+    {
+        return $this->withMeta([
+            'extraAttributes' => $extraAttributes,
         ]);
     }
 
@@ -49,13 +77,15 @@ class SpotifyTrackField extends Field
             $model->{$attribute} = $request[$requestAttribute];
         }
 
-        if ($request->exists('spotify_id')) {
-            $model->spotify_id = $request['spotify_id'];
-            $model->artist = $request['artist'];
-            $model->duration_ms = $request['duration_ms'];
-            $model->popularity = $request['popularity'];
-            $model->preview_url = $request['preview_url'];
-            $model->first_letter = $request['first_letter'];
+        // If the user has selected a new track...
+        if ($request->exists('id')) {
+            $extraAttributes = collect($this->meta['extraAttributes']);
+
+            foreach ($this->trackAttributes as $attr) {
+                if ($extraAttributes->has($attr)) {
+                    $model->{$extraAttributes->get($attr)} = $request[$attr];
+                }
+            }
         }
     }
 }
