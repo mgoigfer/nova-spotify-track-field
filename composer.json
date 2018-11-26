@@ -18,8 +18,8 @@
     ],
     "require": {
         "php": ">=7.1.0",
-        "mgoigfer/laravel-spotify-wrapper": "^0.1.3",
-        "mgoigfer/nova-spotify-auth-tool": "^0.1.2"
+        "mgoigfer/laravel-spotify-wrapper": "*",
+        "mgoigfer/nova-spotify-auth-tool": "*"
     },
     "autoload": {
         "psr-4": {

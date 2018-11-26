@@ -2,9 +2,9 @@
 
 namespace Mgoigfer\SpotifyTrackField;
 
-use Illuminate\Support\Facades\DB;
 use Laravel\Nova\Fields\Field;
 use Laravel\Nova\Http\Requests\NovaRequest;
+use Mgoigfer\SpotifyAuthTool\Facades\Spotify;
 
 class SpotifyTrackField extends Field
 {
@@ -38,12 +38,10 @@ class SpotifyTrackField extends Field
     {
         $spotify = app()->make('SpotifyWrapper');
 
-        $refresh_token = DB::table('spotify')
-            ->where('key', 'refresh_token')->first()->value;
-        $access_token = $spotify->refreshAccessToken($refresh_token);
+        $spotify->session->refreshAccessToken(Spotify::refreshToken());
 
         return $this->withMeta([
-            'spotifyAccessToken' => $access_token,
+            'spotifyAccessToken' => $spotify->session->getAccessToken(),
         ]);
     }
 
